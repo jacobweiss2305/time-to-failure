@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: phone-accuracy
+spec:
+  entrypoint: entry
+  templates:
+  - name: entry
+    dag:
+      tasks:
+      - name: preprocess
+        template: preprocess
+      - name: train
+        dependencies: [preprocess]
+        template: train
+  # Docker Images
+  - name: preprocess
+    container:
+      image: us-central1-docker.pkg.dev/data-science-362714/data-science/phone-accuracy-preprocess:1.0
+  - name: train
+    container:
+      image: us-central1-docker.pkg.dev/data-science-362714/data-science/phone-accuracy-train:1.0
