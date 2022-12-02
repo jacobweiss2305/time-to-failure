@@ -16,8 +16,8 @@ spec:
         app: "jupyterlab"
     spec:
       containers:
-      - name: "jupyterlab-sha256-1"
-        image: "us-central1-docker.pkg.dev/data-science-362714/data-science/jupyterlab@sha256:c4eb7ad9069b73718e52574a94c8b2960237c5b508089cb61e9bf04a3d310c47"
+      - name: "jupyter-1"
+        image: "us-central1-docker.pkg.dev/data-science-362714/time-to-failure/jupyter:1.0"
 ---
 apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"

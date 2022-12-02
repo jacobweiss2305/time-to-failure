@@ -1,7 +1,7 @@
 FROM python:3.9-slim-buster
 
 RUN apt-get update && \
-    apt-get install build-essential curl file git ruby-full locales --no-install-recommends -y && \
+    apt-get install ca-certificates build-essential gnupg lsb-release curl file git ruby-full lsof locales --no-install-recommends -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Install homebrew
