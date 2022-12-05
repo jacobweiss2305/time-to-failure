@@ -5,15 +5,14 @@ SHELL = /bin/bash
 .PHONY: help
 help:
 	@echo "Commands:"
-	@echo "push-version v=1.X                          : push images to GCP."
-	@echo "turn-on-jlab                                : start jupyter server (requires ns=namespace)."
-	@echo "jup-start ns=namespace version=1.X        : start jupyter server (requires v=version_number)."
-
-	@echo "jup-rebuild ns=namespace version=1.X      : kill and rebuild (requires ns=namespace v=version_number)."
+	@echo "push v=1.X      : push images to GCP."
+	@echo "jlab-on         : start jupyter server"
+	@echo "jlab-open       : port forwards jupyter to 127.0.0.0:8888 (requires pod name)"
+	@echo "jlab-off        : turn off jupyter"
 
 # AWS
 .PHONY:
-push-version:
+push:
 	gcloud builds submit preprocess/. --region=us-central1 --tag us-central1-docker.pkg.dev/data-science-362714/time-to-failure/preprocess:$(v) && \
 	gcloud builds submit train/. --region=us-central1 --tag us-central1-docker.pkg.dev/data-science-362714/time-to-failure/train:$(v) && \
 	gcloud builds submit serve/. --region=us-central1 --tag us-central1-docker.pkg.dev/data-science-362714/time-to-failure/serve:$(v) && \
@@ -28,8 +27,8 @@ jlab-on:
 	kubectl get pods -n jlab
 
 .PHONY:
-open-jlab:
-	kubectl port-forward $(pod-name) 8888:8888 -n jlab
+jlab-open:
+	kubectl port-forward $(p) 8888:8888 -n jlab
 
 .PHONY:
 jlab-off:

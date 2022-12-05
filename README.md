@@ -1,8 +1,8 @@
-# Predictive maintenance: time to failure
+# Predictive maintenance
 
 This is a guide that shows a model going from experiment to production using cloud native technologies.
 
-Business problem: build a model that identifies machines who are at risk of failure.
+Our goal is to build a model and deploy a model that predicts the probability of machine failure.
 
 ## Key concepts:
 - Cloud distributed ML
@@ -111,7 +111,7 @@ Business problem: build a model that identifies machines who are at risk of fail
     ```
 
     When you are ready to push images use custom make command:
-    `make push-version v:1.0`
+    `make push v:1.0`
 
 #### Jupyter setup
 
@@ -119,6 +119,27 @@ Business problem: build a model that identifies machines who are at risk of fail
     - This make command will push all images in the monitor, preprocess, serve, train, and jupyter folders.
     - To push just the:
     `gcloud builds submit workstations/jupyter/. --region=REGION--tag REGION-docker.pkg.dev/PROJECT_ID/ARTIFACT_REPO_NAME/jupyter:<add_tag>`
+
+10. Turn on Jupyter server
+`make turn-on-jlab`
+
+11.  Port forward to 127.0.0.0:8080
+
+Get pod name:
+```
+# Copy one of the pod names
+kubectl get pods --namespace jlab`
+
+# Paste into make command
+make open-jlab p=POD_NAME
+
+# You might get an error for binding
+# This means this port is already in use.
+# You can kill 
+```
+
+Go to `127.0.0.0:8080` in a web browser.
+
 
 #### MLflow setup
 

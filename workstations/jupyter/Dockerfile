@@ -24,6 +24,6 @@ RUN mkdir -p /usr/local/gcloud \
 # Adding the package path to local
 ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
-RUN pip install jupyterlab
+RUN pip install jupyterlab kubernetes
 
 CMD ["jupyter-lab","--ip=0.0.0.0","--no-browser","--allow-root"]

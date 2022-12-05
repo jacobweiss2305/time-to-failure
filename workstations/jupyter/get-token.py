@@ -1,4 +1,5 @@
 import re
+# kubernetes gets installed by docker image.
 from kubernetes import client, config
 from kubernetes.client.rest import ApiException
 
